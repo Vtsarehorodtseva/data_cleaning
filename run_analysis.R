@@ -1,5 +1,10 @@
 library(readr)
 library(dplyr)
+library(tidyr)
+options(scipen=999)
+features_path <- list.files(pattern = "features.txt", recursive = TRUE)
+features <- read_delim(features_path, delim = "\t", col_names = FALSE)
+features1 <- features %>% separate(X1, c("number", "title"), sep = " ")
 
-test_path <- list.files(path = ".", pattern = "X_test.txt", recursive = TRUE)
-test <- read_delim(test_path, delim = "\t")
+test_path <- list.files(pattern = "X_test.txt", recursive = TRUE)
+test <- read_delim(test_path, delim = " ", col_names = features1$title)
